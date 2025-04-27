@@ -5,6 +5,12 @@ This is a Cloudflare Worker with OpenAPI 3.1 using [chanfana](https://github.com
 This is an example project made to be used as a quick start into building OpenAPI compliant Workers that generates the
 `openapi.json` schema automatically from code and validates the incoming request to the defined parameters or request body.
 
+curl -X POST https://koi.sgy.co.in/api/log \
+  -H "Authorization: Bearer key" \
+  -H "X-Logger-Label: value" \
+  -H "Content-Type: application/json" \
+  -d '{"log": "Testing the koi logger 🚀"}'
+
 ## Get started
 
 1. Sign up for [Cloudflare Workers](https://workers.dev). The free tier is more than enough for most use cases.
