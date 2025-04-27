@@ -1,26 +1,22 @@
-import { fromHono } from "chanfana";
-import { Hono } from "hono";
-import { TaskCreate } from "./endpoints/taskCreate";
-import { TaskDelete } from "./endpoints/taskDelete";
-import { TaskFetch } from "./endpoints/taskFetch";
-import { TaskList } from "./endpoints/taskList";
+// src/index.ts
 
-// Start a Hono app
+import { Hono } from "hono";
+import { fromHono } from "chanfana";
+import { LogController } from "./controllers/log.controller";
+import type { Env } from "./models/env.d.ts";
+
+// Start Hono app
 const app = new Hono<{ Bindings: Env }>();
 
 // Setup OpenAPI registry
 const openapi = fromHono(app, {
-	docs_url: "/",
+  docs_url: "/", // ⚡ exactly like your previous style
 });
 
 // Register OpenAPI endpoints
-openapi.get("/api/tasks", TaskList);
-openapi.post("/api/tasks", TaskCreate);
-openapi.get("/api/tasks/:taskSlug", TaskFetch);
-openapi.delete("/api/tasks/:taskSlug", TaskDelete);
+openapi.post("/api/log", LogController.createLog);
 
-// You may also register routes for non OpenAPI directly on Hono
-// app.get('/test', (c) => c.text('Hono!'))
+// (Optional) Non-OpenAPI direct routes can use `app.get()` etc later
 
-// Export the Hono app
+// Export app
 export default app;
